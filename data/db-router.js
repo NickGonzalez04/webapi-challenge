@@ -20,7 +20,14 @@ router.post('/:post_id', (req,res)=>{
 
 // POST - actions 
 
-
+router.post('/actions/:id', (req,res)=>{
+    const { id } = req.params;
+    const { project_id, description, notes } = req.body;
+    act.insert(id, { project_id, description, notes })
+    .then(act =>{
+        res.status(201).json(act)
+            });
+})
 
 
 // GET - project 
@@ -47,6 +54,23 @@ router.put('/actions/:id/', (req, res)=> {
     const { id } = req.params;
     const { project_id, description, notes } = req.body;
     act.update(id, { project_id, description, notes })
+    .then(act => {
+        res.status(201).json(act);
+    })
+    .catch(error => {
+        // log error to server
+        console.log(error);
+        res.status(500).json({
+          message: 'Error updating the action',
+        });
+      });
+   
+})
+
+router.put('/:id/', (req, res)=> {
+    const { id } = req.params;
+    const { name, description } = req.body;
+    pro.update(id, { name, description })
     .then(pro => {
         res.status(201).json(pro);
     })
@@ -59,7 +83,6 @@ router.put('/actions/:id/', (req, res)=> {
       });
    
 })
-
 
 // DELETE - project 
 router.delete('/:id', (req, res)=> {
