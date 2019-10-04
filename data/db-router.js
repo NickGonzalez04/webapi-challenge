@@ -10,6 +10,10 @@ const router = express.Router();
 //POST
 
 
+
+
+
+
 // GET 
 router.get('/:id', (req,res)=>{
     pro.get(req.params.id)
@@ -18,9 +22,13 @@ router.get('/:id', (req,res)=>{
     })
 });
 
+
+
 //PUT
-router.post('/', (req, res)=> {
-    pro.update(req.body)
+router.put('/actions/:id/', (req, res)=> {
+    const { id } = req.params;
+    const { notes } = req.body;
+    act.update(id, { notes })
     .then(pro => {
         res.status(201).json(pro);
     })
@@ -31,6 +39,7 @@ router.post('/', (req, res)=> {
           message: 'Error updating the project',
         });
       });
+   
 })
 
 //DELETE
