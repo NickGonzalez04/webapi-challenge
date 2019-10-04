@@ -17,7 +17,7 @@ Go code!
 const express = require('express');
 
 
-
+const dbRouter = require('./data/db-router');
 
 
 
@@ -25,7 +25,7 @@ const express = require('express');
 const server = express();
 
 server.use(express.json());
-
+server.use('/api/projects', dbRouter);
 
 
 // Server test
