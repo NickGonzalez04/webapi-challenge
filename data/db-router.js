@@ -7,9 +7,18 @@ const act = require('./helpers/actionModel');
 const router = express.Router();
 
 
-//POST
+//POST - project 
+router.post('/:post_id', (req,res)=>{
+    const { post_id } = req.params;
+    const { name, description} = req.body;
+ pro.insert({ name, description})
+ .then(pro =>{
+     res.status(201).json(pro)
+         });
+});
 
 
+// POST - actions 
 
 
 
@@ -36,8 +45,8 @@ router.get('/actions/:id', ( req, res)=> {
 //PUT
 router.put('/actions/:id/', (req, res)=> {
     const { id } = req.params;
-    const { notes } = req.body;
-    act.update(id, { notes })
+    const { project_id, description, notes } = req.body;
+    act.update(id, { project_id, description, notes })
     .then(pro => {
         res.status(201).json(pro);
     })
@@ -51,14 +60,25 @@ router.put('/actions/:id/', (req, res)=> {
    
 })
 
-//DELETE
+
+// DELETE - project 
+router.delete('/:id', (req, res)=> {
+    const { id } = req.params;
+    pro.remove(id)
+    .then(pro =>{
+        res.status(200).json(pro)
+    });
+})
+
+
+
+//DELETE - actions 
 router.delete('/actions/:id', (req, res)=>{
     act.remove(req.params.id)
     .then(pro => {
         res.status(200).json(pro)
-    })
+    });
 })
-
 
 
 module.exports = router;
