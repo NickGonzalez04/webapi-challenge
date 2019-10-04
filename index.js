@@ -13,10 +13,10 @@ I need this code, just don't know where, perhaps should make some middleware, do
 Go code!
 */
 
-
+// Express
 const express = require('express');
 
-
+// Server with express
 const server = express();
 
 
@@ -24,7 +24,12 @@ server.use(express.json());
 
 
 
+// Server test
+server.get('/test', (req,res)=>{
+    res.status(200).json({ message: "In there like swim wear"});
+})
 
+// Server listening 
 server.listen(5555, ()=> {
     console.log('\n*** Server is Running on http://localhost:5555 ***\n');
 })
