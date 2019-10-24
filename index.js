@@ -12,3 +12,28 @@ I need this code, just don't know where, perhaps should make some middleware, do
 
 Go code!
 */
+
+// Express
+const express = require('express');
+
+
+const dbRouter = require('./data/db-router');
+
+
+
+// Server with express
+const server = express();
+
+server.use(express.json());
+server.use('/api/projects', dbRouter);
+
+
+// Server test
+server.get('/test', (req,res)=>{
+    res.status(200).json({ message: "In there like swim wear"});
+})
+
+// Server listening 
+server.listen(5555, ()=> {
+    console.log('\n*** Server is Running on http://localhost:5555 ***\n');
+})
